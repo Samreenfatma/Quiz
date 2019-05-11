@@ -1,0 +1,121 @@
+<html>
+<head>
+    <script>
+function ValidateFields()
+{
+	var firstName = document.forms["RegForm"]["firstName"];
+	var lastName = document.forms["RegForm"]["lastName"];
+	var dateOfBirth = document.forms["RegForm"]["dob"];
+	var gender = document.forms["RegForm"]["gender"];
+	var reason = document.forms["RegForm"]["reason"];
+	var birthday = dateOfBirth.value;
+    var dateParts = birthday.split("/");
+    var dob = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+
+
+	if (firstName.value == "")
+	{
+		window.alert("Please enter your first name.");
+		firstName.focus();
+		return false;
+	}
+
+	if (lastName.value == "")
+	{
+		window.alert("Please enter your last Name.");
+		lastName.focus();
+		return false;
+	}
+
+	if (dateOfBirth.value == "")
+	{
+		window.alert("Please enter a valid dob.");
+		dateOfBirth.focus();
+		return false;
+	}
+
+	if (calculateAge(dob) < 15)
+	{
+		window.alert("Age can not be less than 15.");
+		dateOfBirth.focus();
+		return false;
+	}
+
+	if (calculateAge(dob) > 100)
+	{
+		window.alert("Age can not be greter than 100.");
+		dateOfBirth.focus();
+		return false;
+	}
+
+	if (reason.value.trim() == "")
+	{
+		window.alert("Please enter your reason.");
+		reason.focus();
+		return false;
+	}
+
+	if (gender.selectedIndex < 1)
+	{
+		alert("Please enter your gender.");
+		gender.focus();
+		return false;
+	}
+
+	return true;
+}
+ function calculateAge(birthday) {
+   var ageDifMs = Date.now() - birthday.getTime();
+   var ageDate = new Date(ageDifMs);
+   return Math.abs(ageDate.getUTCFullYear() - 1970);
+ }
+</script>
+
+    <style>
+DemoApp {
+	margin-left: 70px;
+	font-weight: bold ;
+	float: left;
+	clear: left;
+	width: 100px;
+	text-align: left;
+	margin-right: 10px;
+	font-family:sans-serif,bold, Arial, Helvetica;
+	font-size:14px;
+}
+
+div {
+	box-sizing: border-box;
+	width: 100%;
+	border: 100px solid black;
+	float: left;
+	align-content: center;
+	align-items: center;
+}
+
+form {
+	margin: 0 auto;
+	width: 600px;
+}</style></head>
+
+<body>
+<h1 style="text-align: center"> User Detals</h1>
+<form name="RegForm" action="/insert" onsubmit="return ValidateFields()" method="post">
+
+    <p>First Name: <input type="text" size=50 name="firstName"> </p><br>
+    <p>Last Name: <input type="text" size=50 name="lastName"> </p><br>
+    <p>Date Of Birth (in DD/mm/YYYY format): <input type="text" size=10 name="dob"> </p><br>
+
+    <p>select yout Gender
+        <select type="text" value="" name="gender">
+            <option>select</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select></p><br><br>
+    <p>reason: <textarea cols="100" name="reason"> </textarea></p>
+    <p><input type="submit" value="send" name="Submit">
+        <input type="reset" value="Reset" name="Reset">
+    </p>
+</form>
+</body>
+</html>
